@@ -35,13 +35,15 @@ export default function DayEntry() {
       return;
     }
     
-    // Calculate next date
-    const currentDate = new Date(currentDay.date);
-    const nextDate = new Date(currentDate);
-    nextDate.setDate(currentDate.getDate() + 1);
-    const nextDateStr = nextDate.toISOString().split('T')[0];
+    // Only add a new day if we are at the last entered day
+    if (dayIndex === days.length - 1) {
+      const currentDate = new Date(currentDay.date);
+      const nextDate = new Date(currentDate);
+      nextDate.setDate(currentDate.getDate() + 1);
+      const nextDateStr = nextDate.toISOString().split('T')[0];
+      addDay(nextDateStr);
+    }
     
-    addDay(nextDateStr);
     setStep(step + 1);
   };
 

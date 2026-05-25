@@ -15,7 +15,7 @@ export default function SummaryEntry({ onGenerate }) {
   }, [totalAmount, advancePaid]);
 
   const handleBack = () => {
-    setStep(days.length + 3); // Go back to the last day entry
+    setStep(days.length + 2); // Corrected: Go back to the last day entry (Step 3 is Day 1)
   };
 
   return (

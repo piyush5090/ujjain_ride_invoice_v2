@@ -32,7 +32,7 @@ const SUCCESS = "#16a34a";
 const styles = StyleSheet.create({
   page: {
     paddingTop: 0,
-    paddingBottom: 65,
+    paddingBottom: 25,
     paddingHorizontal: 30,
     fontFamily: "Mukta",
     fontSize: 10,
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   topBar: {
     height: 8,
     backgroundColor: ACCENT,
-    marginBottom: 22,
+    marginBottom: 18,
   },
 
   // Header
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    marginBottom: 18,
+    marginBottom: 12,
   },
 
   logoSection: {
@@ -60,33 +60,33 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 58,
-    height: 58,
-    marginRight: 12,
+    width: 54,
+    height: 54,
+    marginRight: 10,
     borderRadius: 6,
   },
 
   companyNameEn: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: "bold",
     color: PRIMARY,
     letterSpacing: 0.5,
   },
 
   companyNameHi: {
-    fontSize: 11,
+    fontSize: 10,
     color: MUTED,
     marginTop: 1,
   },
 
   companyMeta: {
-    marginTop: 4,
+    marginTop: 3,
   },
 
   companyMetaText: {
-    fontSize: 8,
+    fontSize: 7,
     color: MUTED,
-    lineHeight: 1.5,
+    lineHeight: 1.4,
   },
 
   // Invoice Meta
@@ -95,11 +95,11 @@ const styles = StyleSheet.create({
   },
 
   invoiceTitle: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
     color: PRIMARY,
     letterSpacing: 1,
-    marginBottom: 8,
+    marginBottom: 6,
   },
 
   metaCard: {
@@ -107,35 +107,35 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: BORDER,
     borderRadius: 6,
-    paddingVertical: 6,
+    paddingVertical: 5,
     paddingHorizontal: 10,
-    marginBottom: 6,
-    minWidth: 160,
+    marginBottom: 5,
+    minWidth: 150,
   },
 
   metaLabel: {
-    fontSize: 7,
+    fontSize: 6,
     color: MUTED,
     textTransform: "uppercase",
-    marginBottom: 2,
+    marginBottom: 1,
   },
 
   metaValue: {
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: "bold",
     color: PRIMARY,
   },
 
   statusBadge: {
     backgroundColor: "#dcfce7",
-    paddingVertical: 4,
+    paddingVertical: 3,
     paddingHorizontal: 10,
     borderRadius: 20,
-    marginTop: 4,
+    marginTop: 2,
   },
 
   statusText: {
-    fontSize: 8,
+    fontSize: 7,
     fontWeight: "bold",
     color: SUCCESS,
   },
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   infoGrid: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 18,
+    marginBottom: 12,
   },
 
   infoCard: {
@@ -153,11 +153,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: BORDER,
     borderRadius: 8,
-    padding: 12,
+    padding: 10,
   },
 
   blockTitleEn: {
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: "bold",
     color: ACCENT,
     marginBottom: 1,
@@ -165,22 +165,22 @@ const styles = StyleSheet.create({
   },
 
   blockTitleHi: {
-    fontSize: 7,
+    fontSize: 6,
     color: MUTED,
-    marginBottom: 8,
+    marginBottom: 6,
   },
 
   customerName: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: "bold",
     color: PRIMARY,
-    marginBottom: 4,
+    marginBottom: 2,
   },
 
   contactText: {
-    fontSize: 9,
+    fontSize: 8,
     color: TEXT,
-    lineHeight: 1.5,
+    lineHeight: 1.4,
   },
 
   // Table
@@ -189,25 +189,25 @@ const styles = StyleSheet.create({
     borderColor: BORDER,
     borderRadius: 8,
     overflow: "hidden",
-    marginBottom: 18,
+    marginBottom: 12,
   },
 
   tableHeader: {
     flexDirection: "row",
     backgroundColor: PRIMARY,
-    paddingVertical: 8,
+    paddingVertical: 7,
     alignItems: "center",
   },
 
   tableHeaderText: {
     color: "#ffffff",
-    fontSize: 8,
+    fontSize: 7,
     fontWeight: "bold",
   },
 
   tableRow: {
     flexDirection: "row",
-    paddingVertical: 7,
+    paddingVertical: 6,
     alignItems: "center",
     borderBottomWidth: 1,
     borderBottomColor: "#f1f5f9",
@@ -218,36 +218,36 @@ const styles = StyleSheet.create({
   },
 
   cellText: {
-    fontSize: 8,
+    fontSize: 7,
     color: TEXT,
-    lineHeight: 1.25,
+    lineHeight: 1.2,
   },
 
   colDay: {
     width: "8%",
-    paddingHorizontal: 5,
+    paddingHorizontal: 4,
   },
 
   colDate: {
     width: "22%",
-    paddingHorizontal: 5,
+    paddingHorizontal: 4,
   },
 
   colPkg: {
-    width: "45%",
-    paddingHorizontal: 5,
+    width: "50%",
+    paddingHorizontal: 4,
   },
 
   colVehicle: {
-    width: "25%",
-    paddingHorizontal: 5,
+    width: "20%",
+    paddingHorizontal: 4,
   },
 
   // Financial Summary
   financialWrapper: {
     flexDirection: "row",
     justifyContent: "flex-end",
-    marginBottom: 18,
+    marginBottom: 10,
   },
 
   financialCard: {
@@ -255,33 +255,33 @@ const styles = StyleSheet.create({
     backgroundColor: LIGHT,
     borderWidth: 1,
     borderColor: BORDER,
-    borderRadius: 10,
-    padding: 12,
+    borderRadius: 8,
+    padding: 8,
   },
 
   amountRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 7,
+    paddingVertical: 5,
     borderBottomWidth: 1,
     borderBottomColor: "#e2e8f0",
   },
 
   amountLabel: {
-    fontSize: 9,
+    fontSize: 8,
     color: TEXT,
     fontWeight: "bold",
   },
 
   amountSub: {
-    fontSize: 7,
+    fontSize: 6,
     color: MUTED,
     marginTop: 1,
   },
 
   amountValue: {
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: "bold",
     color: PRIMARY,
   },
@@ -291,81 +291,71 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: ACCENT,
-    marginTop: 10,
-    borderRadius: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
+    marginTop: 8,
+    borderRadius: 6,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
   },
 
   totalLabel: {
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: "bold",
     color: "#ffffff",
   },
 
   totalSub: {
-    fontSize: 7,
+    fontSize: 6,
     color: "#dbeafe",
     marginTop: 1,
   },
 
   totalValue: {
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: "bold",
     color: "#ffffff",
   },
 
   // Terms
   termsSection: {
-    marginTop: 6,
-    borderTopWidth: 1,
+    marginTop: 2,
+    borderTopWidth: 0.5,
     borderTopColor: BORDER,
-    paddingTop: 12,
+    paddingTop: 6,
   },
 
   termsTitleEn: {
-    fontSize: 10,
-    fontWeight: "bold",
-    color: PRIMARY,
-  },
-
-  termsTitleHi: {
-    fontSize: 7,
-    color: MUTED,
-    marginBottom: 8,
-  },
-
-  termsText: {
-    fontSize: 8,
-    color: TEXT,
-    lineHeight: 1.45,
-    marginBottom: 2,
-  },
-
-  // Footer
-  footer: {
-    position: "absolute",
-    bottom: 18,
-    left: 30,
-    right: 30,
-    borderTopWidth: 1,
-    borderTopColor: BORDER,
-    paddingTop: 8,
-    alignItems: "center",
-  },
-
-  footerMain: {
     fontSize: 9,
     fontWeight: "bold",
     color: PRIMARY,
   },
 
-  footerSub: {
-    fontSize: 7,
+  termsTitleHi: {
+    fontSize: 6,
     color: MUTED,
-    marginTop: 2,
+    marginBottom: 5,
+  },
+
+  termsText: {
+    fontSize: 7,
+    color: TEXT,
+    lineHeight: 1.2,
+    marginBottom: 1,
+  },
+
+  // Footer
+  footer: {
+    marginTop: 8,
+    borderTopWidth: 0.5,
+    borderTopColor: BORDER,
+    paddingTop: 5,
+    alignItems: "center",
+  },
+
+  footerSub: {
+    fontSize: 6,
+    color: MUTED,
     textAlign: "center",
-    lineHeight: 1.4,
+    lineHeight: 1.2,
   },
 });
 
@@ -387,20 +377,19 @@ export default function InvoiceDocument({
 
   const getVehicleName = (vId) => {
     const v = VEHICLES.find((v) => v.id === vId);
-
     return v ? v.en : vId;
   };
 
   const getPackageNames = (pkgIds, otherText) => {
-    return pkgIds
-      .map((id) => {
-        if (id === "other") return otherText || "Other";
+    const names = pkgIds.map((id) => {
+      if (id === "other") return otherText || "Other";
 
-        const pkg = packagesList.find((p) => p.id === id);
+      const pkg = packagesList.find((p) => p.id === id);
 
-        return pkg ? pkg.en : id;
-      })
-      .join(" • ");
+      return pkg ? pkg.en : id;
+    });
+
+    return names.join(" • ").slice(0, 85);
   };
 
   const formatDate = (dateStr) => {
@@ -423,7 +412,6 @@ export default function InvoiceDocument({
         {/* Header */}
         <View style={styles.headerContainer}>
           
-          {/* Company */}
           <View style={styles.logoSection}>
             <Image
               src="/logo.jpeg"
@@ -496,7 +484,7 @@ export default function InvoiceDocument({
           </View>
         </View>
 
-        {/* Customer & Contact */}
+        {/* Info Cards */}
         <View style={styles.infoGrid}>
           
           <View style={styles.infoCard}>
@@ -539,7 +527,6 @@ export default function InvoiceDocument({
         {/* Table */}
         <View style={styles.tableContainer}>
           
-          {/* Header */}
           <View style={styles.tableHeader}>
             
             <View style={styles.colDay}>
@@ -567,7 +554,6 @@ export default function InvoiceDocument({
             </View>
           </View>
 
-          {/* Rows */}
           {days.map((day, index) => (
             <View
               key={index}
@@ -681,38 +667,25 @@ export default function InvoiceDocument({
           </Text>
 
           <Text style={styles.termsText}>
-            • All bookings and final payments are
-            non-refundable after service mobilization.
+            • All bookings and final payments are non-refundable after service mobilization.
           </Text>
 
           <Text style={styles.termsText}>
-            • For round trip cabs, the fare is valid
-            only for 12 hours within a single day.
+            • For round trip cabs, the fare is valid only for 12 hours within a single day.
           </Text>
 
           <Text style={styles.termsText}>
-            • Booking amount is refundable only up
-            to 24 hours before the trip start time.
+            • Booking amount is refundable only up to 24 hours before the trip start time.
           </Text>
         </View>
 
         {/* Footer */}
         <View style={styles.footer}>
-          
-          <Text style={styles.footerMain}>
-            Thank you for choosing Ujjain Ride
-          </Text>
-
           <Text style={styles.footerSub}>
-             Premium Taxi & Pilgrimage Services •
-            Secure Digital Invoice
-          </Text>
-
-          <Text style={styles.footerSub}>
-            This is a computer generated invoice and
-            does not require a signature.
+            This is a computer generated invoice and does not require a signature.
           </Text>
         </View>
+
       </Page>
     </Document>
   );
