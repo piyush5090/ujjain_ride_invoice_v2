@@ -1,6 +1,6 @@
 "use client";
 
-import { useInvoice, PACKAGES } from "@/context/InvoiceContext";
+import { useInvoice, PACKAGES, VEHICLES } from "@/context/InvoiceContext";
 import { motion } from "framer-motion";
 import { ChevronLeft, Check, Plus } from "lucide-react";
 import { useState } from "react";
@@ -30,6 +30,10 @@ export default function DayEntry() {
       alert("कृपया कम से कम एक पैकेज चुनें / Please select at least one package");
       return;
     }
+    if (!currentDay.vehicle) {
+      alert("कृपया वाहन चुनें / Please select a vehicle");
+      return;
+    }
     
     // Calculate next date
     const currentDate = new Date(currentDay.date);
@@ -42,8 +46,16 @@ export default function DayEntry() {
   };
 
   const handleSkip = () => {
+    if (currentDay.packages.length === 0) {
+      alert("कृपया कम से कम एक पैकेज चुनें / Please select at least one package");
+      return;
+    }
+    if (!currentDay.vehicle) {
+      alert("कृपया वाहन चुनें / Please select a vehicle");
+      return;
+    }
     // Finish adding days and move to financials
-    setStep(999); // Use a high number for financial step or a specific constant
+    setStep(999); 
   };
 
   const handleBack = () => {
@@ -79,55 +91,85 @@ export default function DayEntry() {
         <p className="text-gray-500 text-sm italic">{formatDateEn(currentDay.date)}</p>
       </div>
 
-      <div className="text-center">
-        <h3 className="text-xl font-bold font-hindi">पैकेज चुनें (Select the Package):</h3>
-      </div>
+      <div className="space-y-4">
+        <div className="text-center">
+          <h3 className="text-xl font-bold font-hindi text-brand-orange underline underline-offset-4">1. पैकेज चुनें (Select Package):</h3>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {PACKAGES.map((pkg) => (
-          <button
-            key={pkg.id}
-            onClick={() => togglePackage(pkg.id)}
-            className={`p-4 rounded-xl border-2 text-left transition-all flex justify-between items-center ${
-              currentDay.packages.includes(pkg.id)
-                ? "border-brand-orange bg-orange-50 ring-2 ring-brand-orange"
-                : "border-gray-200 hover:border-brand-blue"
-            }`}
-          >
-            <div>
-              <p className="font-bold font-hindi text-lg">{pkg.hi}</p>
-              <p className="text-sm text-gray-600">{pkg.en}</p>
-            </div>
-            {currentDay.packages.includes(pkg.id) && (
-              <div className="bg-brand-orange text-white rounded-full p-1">
-                <Check size={20} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {PACKAGES.map((pkg) => (
+            <button
+              key={pkg.id}
+              onClick={() => togglePackage(pkg.id)}
+              className={`p-4 rounded-xl border-2 text-left transition-all flex justify-between items-center ${
+                currentDay.packages.includes(pkg.id)
+                  ? "border-brand-orange bg-orange-50 ring-2 ring-brand-orange"
+                  : "border-gray-200 hover:border-brand-blue"
+              }`}
+            >
+              <div>
+                <p className="font-bold font-hindi text-lg">{pkg.hi}</p>
+                <p className="text-sm text-gray-600">{pkg.en}</p>
               </div>
-            )}
-          </button>
-        ))}
-      </div>
+              {currentDay.packages.includes(pkg.id) && (
+                <div className="bg-brand-orange text-white rounded-full p-1">
+                  <Check size={20} />
+                </div>
+              )}
+            </button>
+          ))}
+        </div>
 
-      {showOtherInput && (
-        <motion.div 
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: "auto", opacity: 1 }}
-          className="space-y-2"
-        >
-          <p className="font-hindi font-bold">अन्य विवरण दें (Specify Other):</p>
-          <div className="flex space-x-2">
+        {showOtherInput && (
+          <motion.div 
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            className="space-y-2 p-2 border-l-4 border-brand-orange bg-orange-50 rounded"
+          >
+            <p className="font-hindi font-bold">अन्य विवरण दें (Specify Other):</p>
             <input
               type="text"
               value={currentDay.otherText}
               onChange={(e) => updateDay(dayIndex, { otherText: e.target.value })}
-              className="flex-1 p-3 border-2 border-brand-blue rounded-lg"
+              className="w-full p-3 border-2 border-brand-blue rounded-lg bg-white"
               placeholder="यहाँ लिखें / Write here"
               autoFocus
             />
-          </div>
-        </motion.div>
-      )}
+          </motion.div>
+        )}
+      </div>
 
-      <div className="flex flex-col space-y-3 pt-4">
+      <div className="space-y-4 pt-4 border-t-2 border-dashed border-gray-100">
+        <div className="text-center">
+          <h3 className="text-xl font-bold font-hindi text-brand-blue underline underline-offset-4">2. वाहन चुनें (Select Vehicle):</h3>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {VEHICLES.map((v) => (
+            <button
+              key={v.id}
+              onClick={() => updateDay(dayIndex, { vehicle: v.id })}
+              className={`p-4 rounded-xl border-2 text-left transition-all flex justify-between items-center ${
+                currentDay.vehicle === v.id
+                  ? "border-brand-blue bg-blue-50 ring-2 ring-brand-blue"
+                  : "border-gray-200 hover:border-brand-blue"
+              }`}
+            >
+              <div>
+                <p className="font-bold font-hindi text-lg">{v.hi}</p>
+                <p className="text-sm text-gray-600">{v.en}</p>
+              </div>
+              {currentDay.vehicle === v.id && (
+                <div className="bg-brand-blue text-white rounded-full p-1">
+                  <Check size={20} />
+                </div>
+              )}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex flex-col space-y-3 pt-6">
         <div className="flex space-x-4">
           <button
             onClick={handleBack}
@@ -146,23 +188,13 @@ export default function DayEntry() {
           </button>
         </div>
 
-        {dayIndex >= 1 && (
-          <button
-            onClick={handleSkip}
-            className="w-full bg-brand-green text-white py-4 rounded-xl font-bold text-xl shadow-lg"
-          >
-            <span className="font-hindi mr-2">समाप्त करें और पेमेंट पर जाएं</span> / Finish & Go to Payment
-          </button>
-        )}
-        
-        {dayIndex === 0 && (
-           <button
-           onClick={handleSkip}
-           className="w-full bg-brand-green text-white py-4 rounded-xl font-bold text-xl shadow-lg"
-         >
-           <span className="font-hindi mr-2">पेमेंट पर जाएं</span> / Go to Payment
-         </button>
-        )}
+        <button
+          onClick={handleSkip}
+          className="w-full bg-brand-green text-white py-4 rounded-xl font-bold text-xl shadow-lg"
+        >
+          <span className="font-hindi mr-2">{dayIndex >= 1 ? "समाप्त करें और पेमेंट पर जाएं" : "पेमेंट पर जाएं"}</span> 
+          / {dayIndex >= 1 ? "Finish & Go to Payment" : "Go to Payment"}
+        </button>
       </div>
     </motion.div>
   );

@@ -15,13 +15,24 @@ export const PACKAGES = [
   { id: "other", hi: "अन्य (कृपया बताएं)", en: "Other (Please Specify)" },
 ];
 
+export const VEHICLES = [
+  { id: "dzire", hi: "सुजुकी डिजायर", en: "Suzuki Dzire" },
+  { id: "ertiga", hi: "सुजुकी अर्टिगा", en: "Suzuki Ertiga" },
+  { id: "tavera", hi: "टवेरा", en: "Tavera" },
+  { id: "traveller_14", hi: "फ़ोर्स ट्रैवलर (14 सीटर)", en: "Force Traveller (14 seater)" },
+  { id: "traveller_17", hi: "फ़ोर्स ट्रैवलर (17 सीटर)", en: "Force Traveller (17 seater)" },
+  { id: "traveller_20", hi: "फ़ोर्स ट्रैवलर (20 सीटर)", en: "Force Traveller (20 seater)" },
+  { id: "traveller_26", hi: "फ़ोर्स ट्रैवलर (26 सीटर)", en: "Force Traveller (26 seater)" },
+];
+
 export function InvoiceProvider({ children }) {
   const [step, setStep] = useState(0); // 0: Intro, 1: Name, 2: Date, 3+: Day N, Last: Amount
   const [customerName, setCustomerName] = useState("");
   const [startDate, setStartDate] = useState("");
-  const [days, setDays] = useState([]); // [{ date: string, packages: [string], otherText: string }]
+  const [days, setDays] = useState([]); // [{ date: string, packages: [string], otherText: string, vehicle: string }]
   const [totalAmount, setTotalAmount] = useState("");
   const [advancePaid, setAdvancePaid] = useState("");
+  const [invoiceId] = useState(() => Math.floor(10000000 + Math.random() * 90000000).toString());
 
   const updateDay = (index, data) => {
     const newDays = [...days];
@@ -30,7 +41,7 @@ export function InvoiceProvider({ children }) {
   };
 
   const addDay = (date) => {
-    setDays([...days, { date, packages: [], otherText: "" }]);
+    setDays([...days, { date, packages: [], otherText: "", vehicle: "" }]);
   };
 
   const removeLastDay = () => {
@@ -53,6 +64,7 @@ export function InvoiceProvider({ children }) {
     setTotalAmount,
     advancePaid,
     setAdvancePaid,
+    invoiceId,
   };
 
   return (

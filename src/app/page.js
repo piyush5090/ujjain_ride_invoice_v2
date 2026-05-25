@@ -9,7 +9,7 @@ import SummaryEntry from "@/components/SummaryEntry";
 import { AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import { pdf } from "@react-pdf/renderer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Import InvoiceDocument dynamically to avoid SSR issues with @react-pdf/renderer
 const InvoiceDocument = dynamic(() => import("@/components/InvoiceDocument"), {
@@ -17,13 +17,18 @@ const InvoiceDocument = dynamic(() => import("@/components/InvoiceDocument"), {
 });
 
 export default function Home() {
-  const { step, customerName, startDate, days, totalAmount, advancePaid } = useInvoice();
+  const { step, customerName, startDate, days, totalAmount, advancePaid, invoiceId } = useInvoice();
   const [isGenerating, setIsGenerating] = useState(false);
+
+  // Scroll to top on step change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [step]);
 
   const handleGenerate = async () => {
     setIsGenerating(true);
     try {
-      const data = { customerName, startDate, days, totalAmount, advancePaid };
+      const data = { customerName, startDate, days, totalAmount, advancePaid, invoiceId };
       
       // Need to import InvoiceDocument here for pdf() to work properly with data
       const { default: Document } = await import("@/components/InvoiceDocument");
@@ -32,7 +37,7 @@ export default function Home() {
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = `Invoice_${customerName.replace(/\s+/g, '_')}_${new Date().toLocaleDateString().replace(/\//g, '-')}.pdf`;
+      link.download = `Invoice_${invoiceId}_${customerName.replace(/\s+/g, '_')}.pdf`;
       link.click();
       URL.revokeObjectURL(url);
     } catch (error) {

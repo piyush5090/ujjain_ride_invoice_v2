@@ -3,14 +3,19 @@
 import { useInvoice } from "@/context/InvoiceContext";
 import { motion } from "framer-motion";
 import { ChevronLeft, FileDown } from "lucide-react";
+import { useMemo } from "react";
 
 export default function SummaryEntry({ onGenerate }) {
   const { totalAmount, setTotalAmount, advancePaid, setAdvancePaid, setStep, days } = useInvoice();
 
-  const remaining = (parseFloat(totalAmount) || 0) - (parseFloat(advancePaid) || 0);
+  const remaining = useMemo(() => {
+    const total = parseFloat(totalAmount) || 0;
+    const advance = parseFloat(advancePaid) || 0;
+    return total - advance;
+  }, [totalAmount, advancePaid]);
 
   const handleBack = () => {
-    setStep(days.length + 2); // Go back to the last day entry
+    setStep(days.length + 3); // Go back to the last day entry
   };
 
   return (
