@@ -26,7 +26,7 @@ export const VEHICLES = [
 ];
 
 export function InvoiceProvider({ children }) {
-  const [step, setStep] = useState(0); // 0: Intro, 1: Name, 2: Date, 3+: Day N, Last: Amount
+  const [step, setStep] = useState(1); // Start at 1: Name Entry
   const [customerName, setCustomerName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [days, setDays] = useState([]); // [{ date: string, packages: [string], otherText: string, vehicle: string }]

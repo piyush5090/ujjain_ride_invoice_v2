@@ -17,6 +17,22 @@ export const metadata = {
   title: "Ujjain Ride Invoice",
   description: "Internal tool for Ujjain Ride employees to generate customer invoices.",
   manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "UR Invoice",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+};
+
+export const viewport = {
+  themeColor: "#1e40af",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({ children }) {
