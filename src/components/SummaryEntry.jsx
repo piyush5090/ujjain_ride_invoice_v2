@@ -3,16 +3,9 @@
 import { useInvoice } from "@/context/InvoiceContext";
 import { motion } from "framer-motion";
 import { ChevronLeft, FileDown } from "lucide-react";
-import { useMemo } from "react";
 
 export default function SummaryEntry({ onGenerate }) {
   const { totalAmount, setTotalAmount, advancePaid, setAdvancePaid, setStep, days } = useInvoice();
-
-  const remaining = useMemo(() => {
-    const total = parseFloat(totalAmount) || 0;
-    const advance = parseFloat(advancePaid) || 0;
-    return total - advance;
-  }, [totalAmount, advancePaid]);
 
   const handleBack = () => {
     setStep(days.length + 2); // Corrected: Go back to the last day entry (Step 3 is Day 1)
@@ -50,11 +43,6 @@ export default function SummaryEntry({ onGenerate }) {
             className="w-full p-4 text-xl border-2 border-brand-blue rounded-xl focus:ring-2 focus:ring-brand-orange outline-none"
             placeholder="₹ 0"
           />
-        </div>
-
-        <div className="p-6 bg-brand-orange bg-opacity-10 rounded-2xl border-2 border-brand-orange border-dashed">
-          <p className="text-center text-sm font-bold text-gray-600 font-hindi">शेष राशि (Remaining Balance):</p>
-          <p className="text-center text-3xl font-bold text-brand-orange">₹ {remaining}</p>
         </div>
       </div>
 

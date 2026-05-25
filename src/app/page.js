@@ -25,7 +25,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowSplash(false);
-    }, 2500);
+    }, 1500); // Reduced from 2500ms
     return () => clearTimeout(timer);
   }, []);
 
@@ -72,15 +72,14 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4 }}
             className="fixed inset-0 z-[200] bg-white flex flex-col items-center justify-center"
           >
             <motion.div
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ 
-                duration: 0.8,
-                delay: 0.2,
+                duration: 0.6,
                 type: "spring",
                 stiffness: 100 
               }}
@@ -95,9 +94,9 @@ export default function Home() {
               />
             </motion.div>
             <motion.div
-              initial={{ y: 20, opacity: 0 }}
+              initial={{ y: 10, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.8 }}
+              transition={{ delay: 0.3 }}
               className="text-center"
             >
               <h1 className="text-3xl font-bold text-brand-blue font-hindi">Ujjain Ride Invoice</h1>
@@ -108,7 +107,7 @@ export default function Home() {
               className="absolute bottom-12"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1.2 }}
+              transition={{ delay: 0.5 }}
             >
               <div className="flex space-x-1">
                 <div className="w-2 h-2 bg-brand-blue rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>

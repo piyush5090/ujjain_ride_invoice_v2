@@ -6,7 +6,8 @@ const InvoiceContext = createContext();
 
 export const PACKAGES = [
   { id: "ujjain_darshan", hi: "उज्जैन दर्शन", en: "Ujjain Darshan" },
-  { id: "indore_pickup_drop", hi: "इंदौर पिकअप/ड्रॉप", en: "Indore Pickup/Drop" },
+  { id: "indore_airport_pickup", hi: "इंदौर एयरपोर्ट पिकअप", en: "Indore Airport Pickup" },
+  { id: "indore_airport_drop", hi: "इंदौर एयरपोर्ट ड्रॉप", en: "Indore Airport Drop" },
   { id: "omkareshwar_darshan", hi: "ओंकारेश्वर दर्शन", en: "Omkareshwar Darshan" },
   { id: "baglamukhi_darshan", hi: "बगलामुखी दर्शन", en: "Baglamukhi Darshan" },
   { id: "indore_sightseen", hi: "इंदौर साइटसीन", en: "Indore sightseen" },
