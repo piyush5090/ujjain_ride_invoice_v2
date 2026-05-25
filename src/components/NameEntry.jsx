@@ -32,6 +32,7 @@ export default function NameEntry() {
         className="w-full max-w-md p-4 text-xl border-2 border-brand-blue rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-orange text-center"
         placeholder="नाम / Name"
         autoFocus
+        autoComplete="off"
         onKeyDown={(e) => e.key === "Enter" && handleNext()}
       />
 
