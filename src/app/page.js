@@ -1,6 +1,7 @@
 "use client";
 
 import { useInvoice, PACKAGES } from "@/context/InvoiceContext";
+import CategorySelection from "@/components/CategorySelection";
 import NameEntry from "@/components/NameEntry";
 import DateEntry from "@/components/DateEntry";
 import DayEntry from "@/components/DayEntry";
@@ -17,7 +18,7 @@ const InvoiceDocument = dynamic(() => import("@/components/InvoiceDocument"), {
 });
 
 export default function Home() {
-  const { step, customerName, startDate, days, totalAmount, advancePaid, invoiceId } = useInvoice();
+  const { step, customerName, startDate, days, totalAmount, advancePaid, invoiceId, category } = useInvoice();
   const [isGenerating, setIsGenerating] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
 
@@ -37,7 +38,7 @@ export default function Home() {
   const handleGenerate = async () => {
     setIsGenerating(true);
     try {
-      const data = { customerName, startDate, days, totalAmount, advancePaid, invoiceId };
+      const data = { customerName, startDate, days, totalAmount, advancePaid, invoiceId, category };
       
       // Need to import InvoiceDocument here for pdf() to work properly with data
       const { default: Document } = await import("@/components/InvoiceDocument");
@@ -46,7 +47,7 @@ export default function Home() {
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = `Invoice_${invoiceId}_${customerName.replace(/\s+/g, '_')}.pdf`;
+      link.download = `${category === 'planner' ? 'Plan' : 'Invoice'}_${invoiceId}_${customerName.replace(/\s+/g, '_')}.pdf`;
       link.click();
       URL.revokeObjectURL(url);
     } catch (error) {
@@ -58,6 +59,7 @@ export default function Home() {
   };
 
   const renderStep = () => {
+    if (step === 0) return <CategorySelection key="category" />;
     if (step === 1) return <NameEntry key="name" />;
     if (step === 2) return <DateEntry key="date" />;
     if (step >= 3 && step < 999) return <DayEntry key={`day-${step}`} />;

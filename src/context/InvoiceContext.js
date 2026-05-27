@@ -27,7 +27,8 @@ export const VEHICLES = [
 ];
 
 export function InvoiceProvider({ children }) {
-  const [step, setStep] = useState(1); // Start at 1: Name Entry
+  const [step, setStep] = useState(0); // Start at 0: Category Selection
+  const [category, setCategory] = useState("pending"); // pending, success, planner
   const [customerName, setCustomerName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [days, setDays] = useState([]); // [{ date: string, packages: [string], otherText: string, vehicle: string }]
@@ -52,6 +53,8 @@ export function InvoiceProvider({ children }) {
   const value = {
     step,
     setStep,
+    category,
+    setCategory,
     customerName,
     setCustomerName,
     startDate,

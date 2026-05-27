@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { ChevronLeft, FileDown } from "lucide-react";
 
 export default function SummaryEntry({ onGenerate }) {
-  const { totalAmount, setTotalAmount, advancePaid, setAdvancePaid, setStep, days } = useInvoice();
+  const { totalAmount, setTotalAmount, advancePaid, setAdvancePaid, setStep, days, category } = useInvoice();
 
   const handleBack = () => {
     setStep(days.length + 2); // Corrected: Go back to the last day entry (Step 3 is Day 1)
@@ -18,8 +18,8 @@ export default function SummaryEntry({ onGenerate }) {
       className="flex flex-col w-full max-w-md mx-auto p-6 space-y-8"
     >
       <div className="text-center space-y-2">
-        <h2 className="text-2xl font-bold font-hindi">कुल देय राशि दर्ज करें:</h2>
-        <h3 className="text-lg text-gray-600">Enter Total Payable amount:</h3>
+        <h2 className="text-2xl font-bold font-hindi">{category === 'planner' ? 'कुल अनुमानित राशि दर्ज करें:' : 'कुल देय राशि दर्ज करें:'}</h2>
+        <h3 className="text-lg text-gray-600">{category === 'planner' ? 'Enter Total Estimated amount:' : 'Enter Total Payable amount:'}</h3>
       </div>
 
       <div className="space-y-6">
@@ -34,16 +34,18 @@ export default function SummaryEntry({ onGenerate }) {
           />
         </div>
 
-        <div className="space-y-2">
-          <label className="block text-sm font-bold text-gray-700 font-hindi">अग्रिम राशि (Advance Paid):</label>
-          <input
-            type="number"
-            value={advancePaid}
-            onChange={(e) => setAdvancePaid(e.target.value)}
-            className="w-full p-4 text-xl border-2 border-brand-blue rounded-xl focus:ring-2 focus:ring-brand-orange outline-none"
-            placeholder="₹ 0"
-          />
-        </div>
+        {category !== 'planner' && (
+          <div className="space-y-2">
+            <label className="block text-sm font-bold text-gray-700 font-hindi">अग्रिम राशि (Advance Paid):</label>
+            <input
+              type="number"
+              value={advancePaid}
+              onChange={(e) => setAdvancePaid(e.target.value)}
+              className="w-full p-4 text-xl border-2 border-brand-blue rounded-xl focus:ring-2 focus:ring-brand-orange outline-none"
+              placeholder="₹ 0"
+            />
+          </div>
+        )}
       </div>
 
       <div className="flex flex-col space-y-4">
@@ -52,7 +54,7 @@ export default function SummaryEntry({ onGenerate }) {
           className="w-full bg-brand-blue text-white py-4 rounded-xl text-xl font-bold hover:bg-blue-800 transition-colors shadow-lg flex items-center justify-center"
         >
           <FileDown className="mr-2" />
-          <span className="font-hindi mr-2">इनवॉइस जनरेट करें</span> / Generate Invoice
+          <span className="font-hindi mr-2">{category === 'planner' ? 'प्लान जनरेट करें' : 'इनवॉइस जनरेट करें'}</span> / {category === 'planner' ? 'Generate Plan' : 'Generate Invoice'}
         </button>
         
         <button

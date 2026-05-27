@@ -28,6 +28,7 @@ const BORDER = "#e2e8f0";
 const TEXT = "#334155";
 const MUTED = "#64748b";
 const SUCCESS = "#16a34a";
+const WARNING = "#f97316";
 
 const styles = StyleSheet.create({
   page: {
@@ -43,7 +44,35 @@ const styles = StyleSheet.create({
   topBar: {
     height: 8,
     backgroundColor: ACCENT,
-    marginBottom: 18,
+    marginBottom: 10,
+  },
+
+  greetingSection: {
+    alignItems: "center",
+    marginBottom: 8,
+  },
+
+  greetingHi: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: WARNING,
+  },
+
+  greetingEn: {
+    fontSize: 8,
+    color: MUTED,
+    textTransform: "uppercase",
+    letterSpacing: 2,
+  },
+
+  plannerBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    opacity: 0.03,
+    zIndex: -1,
   },
 
   // Header
@@ -369,7 +398,11 @@ export default function InvoiceDocument({
     totalAmount,
     advancePaid,
     invoiceId,
+    category = "pending"
   } = data;
+
+  const isPlanner = category === "planner";
+  const themeColor = isPlanner ? WARNING : ACCENT;
 
   const remaining =
     (parseFloat(totalAmount) || 0) -
@@ -402,12 +435,33 @@ export default function InvoiceDocument({
     });
   };
 
+  const getStatusConfig = () => {
+    if (category === "success") return { en: "SUCCESS FOR BOOKING", hi: "बुकिंग सफल", color: SUCCESS };
+    if (category === "planner") return { en: "PROPOSED ITINERARY", hi: "प्रस्तावित यात्रा मार्ग", color: themeColor };
+    return { en: "PENDING FOR BOOKING", hi: "बुकिंग के लिए लंबित", color: WARNING };
+  };
+
+  const status = getStatusConfig();
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         
+        {/* Background shapes for Planner */}
+        {isPlanner && (
+          <View style={[styles.plannerBackground, { backgroundColor: themeColor }]} />
+        )}
+
         {/* Top Bar */}
-        <View style={styles.topBar} />
+        <View style={[styles.topBar, { backgroundColor: themeColor }]} />
+
+        {/* Greeting for Planner */}
+        {isPlanner && (
+          <View style={styles.greetingSection}>
+            <Text style={styles.greetingHi}>॥ जय श्री महाकाल ॥</Text>
+            <Text style={styles.greetingEn}>Jai Shree Mahakal</Text>
+          </View>
+        )}
 
         {/* Header */}
         <View style={styles.headerContainer}>
@@ -445,13 +499,13 @@ export default function InvoiceDocument({
 
           {/* Invoice Meta */}
           <View style={styles.invoiceMetaSection}>
-            <Text style={styles.invoiceTitle}>
-              INVOICE
+            <Text style={[styles.invoiceTitle, { color: isPlanner ? themeColor : PRIMARY }]}>
+              {isPlanner ? "PLANNER" : "INVOICE"}
             </Text>
 
             <View style={styles.metaCard}>
               <Text style={styles.metaLabel}>
-                Invoice ID
+                {isPlanner ? "Plan ID" : "Invoice ID"}
               </Text>
 
               <Text style={styles.metaValue}>
@@ -476,9 +530,9 @@ export default function InvoiceDocument({
               </Text>
             </View>
 
-            <View style={styles.statusBadge}>
-              <Text style={styles.statusText}>
-                CONFIRMED BOOKING
+            <View style={[styles.statusBadge, { backgroundColor: status.color + "15" }]}>
+              <Text style={[styles.statusText, { color: status.color }]}>
+                {status.en}
               </Text>
             </View>
           </View>
@@ -488,7 +542,7 @@ export default function InvoiceDocument({
         <View style={styles.infoGrid}>
           
           <View style={styles.infoCard}>
-            <Text style={styles.blockTitleEn}>
+            <Text style={[styles.blockTitleEn, { color: themeColor }]}>
               Customer Details
             </Text>
 
@@ -502,7 +556,7 @@ export default function InvoiceDocument({
           </View>
 
           <View style={styles.infoCard}>
-            <Text style={styles.blockTitleEn}>
+            <Text style={[styles.blockTitleEn, { color: themeColor }]}>
               Support & Contact
             </Text>
 
@@ -527,7 +581,7 @@ export default function InvoiceDocument({
         {/* Table */}
         <View style={styles.tableContainer}>
           
-          <View style={styles.tableHeader}>
+          <View style={[styles.tableHeader, { backgroundColor: isPlanner ? themeColor : PRIMARY }]}>
             
             <View style={styles.colDay}>
               <Text style={styles.tableHeaderText}>
@@ -598,91 +652,67 @@ export default function InvoiceDocument({
           
           <View style={styles.financialCard}>
             
-            <View style={styles.amountRow}>
-              <View>
-                <Text style={styles.amountLabel}>
-                  Total Fare
-                </Text>
+            {!isPlanner ? (
+              <>
+                <View style={styles.amountRow}>
+                  <View>
+                    <Text style={styles.amountLabel}>Total Fare</Text>
+                    <Text style={styles.amountSub}>कुल यात्रा राशि</Text>
+                  </View>
+                  <Text style={styles.amountValue}>
+                    ₹{parseFloat(totalAmount).toLocaleString("en-IN")}
+                  </Text>
+                </View>
 
-                <Text style={styles.amountSub}>
-                  कुल यात्रा राशि
-                </Text>
-              </View>
+                <View style={styles.amountRow}>
+                  <View>
+                    <Text style={styles.amountLabel}>Advance Paid</Text>
+                    <Text style={styles.amountSub}>अग्रिम भुगतान</Text>
+                  </View>
+                  <Text style={styles.amountValue}>
+                    ₹{parseFloat(advancePaid).toLocaleString("en-IN")}
+                  </Text>
+                </View>
 
-              <Text style={styles.amountValue}>
-                ₹
-                {parseFloat(
-                  totalAmount
-                ).toLocaleString("en-IN")}
-              </Text>
-            </View>
-
-            <View style={styles.amountRow}>
-              <View>
-                <Text style={styles.amountLabel}>
-                  Advance Paid
-                </Text>
-
-                <Text style={styles.amountSub}>
-                  अग्रिम भुगतान
-                </Text>
-              </View>
-
-              <Text style={styles.amountValue}>
-                ₹
-                {parseFloat(
-                  advancePaid
-                ).toLocaleString("en-IN")}
-              </Text>
-            </View>
-
-            <View style={styles.totalRow}>
-              <View>
-                <Text style={styles.totalLabel}>
-                  Remaining Balance
-                </Text>
-
-                <Text style={styles.totalSub}>
-                  शेष भुगतान राशि
+                <View style={[styles.totalRow, { backgroundColor: themeColor }]}>
+                  <View>
+                    <Text style={styles.totalLabel}>Remaining Balance</Text>
+                    <Text style={styles.totalSub}>शेष भुगतान राशि</Text>
+                  </View>
+                  <Text style={styles.totalValue}>
+                    ₹{remaining.toLocaleString("en-IN")}
+                  </Text>
+                </View>
+              </>
+            ) : (
+              <View style={[styles.totalRow, { backgroundColor: themeColor, marginTop: 0 }]}>
+                <View>
+                  <Text style={styles.totalLabel}>Total Estimated Fare</Text>
+                  <Text style={styles.totalSub}>कुल अनुमानित यात्रा राशि</Text>
+                </View>
+                <Text style={styles.totalValue}>
+                  ₹{parseFloat(totalAmount).toLocaleString("en-IN")}
                 </Text>
               </View>
-
-              <Text style={styles.totalValue}>
-                ₹
-                {remaining.toLocaleString("en-IN")}
-              </Text>
-            </View>
+            )}
           </View>
         </View>
 
-        {/* Terms */}
-        <View style={styles.termsSection}>
-          
-          <Text style={styles.termsTitleEn}>
-            Terms & Conditions
-          </Text>
-
-          <Text style={styles.termsTitleHi}>
-            नियम एवं शर्तें
-          </Text>
-
-          <Text style={styles.termsText}>
-            • All bookings and final payments are non-refundable after service mobilization.
-          </Text>
-
-          <Text style={styles.termsText}>
-            • For round trip cabs, the fare is valid only for 12 hours within a single day.
-          </Text>
-
-          <Text style={styles.termsText}>
-            • Booking amount is refundable only up to 24 hours before the trip start time.
-          </Text>
-        </View>
+        {/* Terms - Hidden for Planner */}
+        {!isPlanner && (
+          <View style={styles.termsSection}>
+            <Text style={styles.termsTitleEn}>Terms & Conditions</Text>
+            <Text style={styles.termsTitleHi}>नियम एवं शर्तें</Text>
+            <Text style={styles.termsText}>• All bookings and final payments are non-refundable after service mobilization.</Text>
+            <Text style={styles.termsText}>• For round trip cabs, the fare is valid only for 12 hours within a single day.</Text>
+            <Text style={styles.termsText}>• Booking amount is refundable only up to 24 hours before the trip start time.</Text>
+          </View>
+        )}
 
         {/* Footer */}
         <View style={styles.footer}>
           <Text style={styles.footerSub}>
-            This is a computer generated invoice and does not require a signature.
+            This is a computer generated {isPlanner ? 'itinerary plan' : 'invoice'} and does not require a signature.
           </Text>
         </View>
 
