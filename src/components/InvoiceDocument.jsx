@@ -705,7 +705,6 @@ export default function InvoiceDocument({
             <Text style={styles.termsTitleHi}>नियम एवं शर्तें</Text>
             <Text style={styles.termsText}>• All bookings and final payments are non-refundable after service mobilization.</Text>
             <Text style={styles.termsText}>• For round trip cabs, the fare is valid only for 12 hours within a single day.</Text>
-            <Text style={styles.termsText}>• Booking amount is refundable only up to 24 hours before the trip start time.</Text>
           </View>
         )}
 
